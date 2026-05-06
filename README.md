@@ -4,5 +4,5 @@ Proyecto final para el bootcamp Full Stack JavaScript de Desafío Latam. Consist
 
 💻 Desarrolladores
 
-Camila Cifuentes
+Camila Cifuentes,
 Isaac Montillas
