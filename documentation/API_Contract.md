@@ -7,7 +7,9 @@ GET /users
                     id: Number,
                     name: String,
                     email: String,
-                    role: String
+                    role: String,
+                    location: String,
+                    avatar_url: String
                 },
                 {
                     ...
@@ -23,44 +25,49 @@ GET /users/:id
                 name: String,
                 email: String,
                 role: String
+                location: String,
+                avatar_url: String
             } 
 
 POST /users
-    USER: ADMIN
-        request:
-            payload:
-                {
+    request:
+        payload:
+            {
+                name: String,
+                email: String,
+                role: String
+                location: String,
+                avatar_url: String
+            }
+    response:
+        {
+            message: String
+            id: Number
+        }
+    
+PUT /users/:id
+    request:
+        payload:
+            {
+                name: String,
+                email: String,
+                role: String,
+                location: String,
+                avatar_url: String
+            }
+    response:
+        {
+            message: String,
+            user:
+                { 
                     id: Number,
                     name: String,
                     email: String,
                     role: String
+                    location: String,
+                    avatar_url: String
                 }
-        response:
-            {
-                messsage: String
-                id: Number
-            }
-    
-PUT /users/:id
-    USER: ADMIN
-        request:
-            payload:
-                {
-                    name: String,
-                    email: String,
-                    role: String
-                }
-        response:
-            {
-                message: String,
-                user:
-                    { 
-                        id: Number,
-                        name: String,
-                        email: String,
-                        role: String
-                    }
-            }
+        }
 
 DELETE /users/:id
     USER: ADMIN
@@ -80,8 +87,20 @@ GET /products
                 price: Number,
                 description: String,
                 stock: Number,
-                image_url: String,
-                category_id: Number
+                category_id: Number,
+                seller_id: Number,
+                location: String,
+                created_at: String,
+                images:
+                    [
+                        {
+                            url: String,
+                            position: Number
+                        },
+                        {
+                            ...
+                        }
+                    ]
             },
             {
                 ...
@@ -97,49 +116,89 @@ GET /products/:id
             price: Number,
             description: String,
             stock: Number,
-            image_url: String,
-            category_id: Number
+            category_id: Number,
+            seller_id: Number,
+            location: String,
+            created_at: String,
+            images:
+                [
+                    {
+                        url: String,
+                        position: Number
+                    },
+                    {
+                        ...
+                    }
+                ]
         }
 
 
 POST /products
-    USER: ADMIN
     request:
         payload: {
-            id: number
             name: String,
             price: Number
             description: String,
-            strock: Number,
-            image_url: String
-            category_id: number
+            stock: Number,
+            category_id: Number,
+            seller_id: Number,
+            location: String,
+            images:
+                [
+                    {
+                        url: String,
+                        position: Number
+                    },
+                    {
+                        ...
+                    }
+                ]
         }
     response:
         {
-            id: number
+            id: Number
             name: String,
             price: Number
             description: String,
-            strock: Number,
-            image_url: String
-            category_id: number
+            stock: Number,
+            category_id: Number
+            seller_id: Number,
+            location: String,
+            images:
+                [
+                    {
+                        url: String,
+                        position: Number
+                    },
+                    {
+                        ...
+                    }
+                ]
         }
 
 
 PUT /products/:id
-    USER: ADMIN
         payload: {
-            id: number
             name: String,
             price: Number
             description: String,
-            strock: Number,
-            image_url: String
-            category_id: number
+            stock: Number,
+            category_id: Number,
+            seller_id: Number,
+            location: String,
+            images:
+                [
+                    {
+                        url: String,
+                        position: Number
+                    },
+                    {
+                        ...
+                    }
+                ]
         }
 
 DELETE /products/:id
-    USER: ADMIN
         response:
             {
                 message: String
@@ -204,10 +263,17 @@ GET /orders
         [
             {
                 id: Number,
-                user_id: Number,
+                buyer_id: Number,
                 status: String,
                 created_at: String,
                 total_price: Number
+                items: [
+                    {
+                        products_id: Number,
+                        quantity: Number,
+                        unit_price_at_purchase: Number
+                    }
+                ]
             },
             {
                 ...
@@ -219,7 +285,7 @@ GET /orders/:id
     response:
         {
             id: Number,
-            user_id: Number,
+            buyer_id: Number,
             status: String,
             created_at: String,
             total_price: Number,
@@ -227,16 +293,17 @@ GET /orders/:id
                 {
                     id: Number,
                     products_id: Number,
-                    quantity: Number
+                    quantity: Number,
+                    unit_price_at_purchase: Number
                 }
-                ]
+            ]
         }
 
 POST /orders
     request:
             payload:
                 {
-                    user_id: Number,
+                    buyer_id: Number,
                     total_price: Number,
                     status: String,
                     items:
@@ -244,6 +311,7 @@ POST /orders
                         {
                             products_id: Number,
                             quantity: Number
+                            unit_price_at_purchase: Number
                         }
                     ]
                 }
@@ -274,6 +342,47 @@ DELETE /orders/:id
             message: String
         }
 
+# USER_FAVORITES
+POST /favorites
+request:
+    payload: {
+        user_id: Number,
+        product_id: Number
+    }
+response:
+    {
+        message: String
+    }
+
+GET /users/:id/favorites
+response:
+    [
+        {
+            id: Number,
+            name: String,
+            price: Number,
+            description: String,
+            stock: Number,
+            category_id: Number,
+            seller_id: Number,
+            location: String,
+            created_at: String,
+            images:
+                [
+                    {
+                        url: String,
+                        position: Number
+                    },
+                    {
+                        ...
+                    }
+                ]
+        },
+        {
+            ...
+        }
+        ...
+    ]
 
 # AUTH
 POST /login
@@ -298,7 +407,8 @@ request:
         email: String,
         name: String,
         password: String,
-        role: String
+        location: String,
+        avatar_url: String
     }
 response:
     {
