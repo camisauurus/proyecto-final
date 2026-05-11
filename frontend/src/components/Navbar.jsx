@@ -12,12 +12,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="container">
+    <nav>
       <ul>
         <li>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to="/">
             <strong>
-              <Package color="var(--primary)" />
+              <Package color="var(--pink-color)" />
               MinimalStore
             </strong>
           </Link>
@@ -27,15 +27,15 @@ const Navbar = () => {
         {user ? (
           <>
             <li>
-              <Link to="/catalogo" className="secondary">Catálogo</Link>
+              <Link to="/catalogo" role="button">Catálogo</Link>
             </li>
             <li>
-              <Link to="/perfil" className="secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Link to="/perfil" role="button">
                 <User size={18} /> Mi Perfil
               </Link>
             </li>
             <li>
-              <button className="outline" onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem' }}>
+              <button onClick={handleLogout}>
                 <LogOut size={18} /> Salir
               </button>
             </li>
@@ -43,10 +43,10 @@ const Navbar = () => {
         ) : (
           <>
             <li>
-              <Link to="/login" className="secondary">Iniciar Sesión</Link>
+              <Link to="/login" role="button">Iniciar Sesión</Link>
             </li>
             <li>
-              <Link to="/registro" role="button" className="primary">Registro</Link>
+              <Link to="/registro" role="button" className="secondary">Registro</Link>
             </li>
           </>
         )}

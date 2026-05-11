@@ -1,112 +1,147 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PlusCircle, Trash2 } from "lucide-react";
 
 const CreatePublication = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: "",
+    name: "",
     price: "",
     category: "",
-    image: "",
     description: ""
   });
+  const [images, setImages] = useState([""]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (index, value) => {
+    const newImages = [...images];
+    newImages[index] = value;
+    setImages(newImages);
+  };
+
+  const addImageInput = () => {
+    setImages([...images, ""]);
+  };
+
+  const removeImageInput = (index) => {
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages.length ? newImages : [""]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate API call to create publication
     navigate("/perfil");
   };
 
   return (
-    <div className="container" style={{ padding: '2rem 0' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ marginBottom: '0.5rem' }}>Nueva Publicación</h1>
-        <p style={{ color: 'var(--text-muted)' }}>Completa los datos para vender un artículo</p>
-      </div>
+    <>
+      <hgroup>
+        <h1>Nueva Publicación</h1>
+        <p>Completa los datos para vender un artículo</p>
+      </hgroup>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <form onSubmit={handleSubmit} className="card">
-          <label htmlFor="title">
+      <form onSubmit={handleSubmit} className="card">
+        <div className="form-group">
+          <label htmlFor="name">
             Título del Artículo
             <input
               type="text"
-              id="title"
-              name="title"
-              value={formData.title}
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+
+        <fieldset className="form-group">
+          <label htmlFor="price">
+            Precio ($)
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={formData.price}
               onChange={handleChange}
               required
             />
           </label>
 
-          <div className="grid">
-            <label htmlFor="price">
-              Precio ($)
+          <label htmlFor="category">
+            Categoría
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>Seleccione una categoría...</option>
+              <option value="muebles">Muebles</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="decoracion">Decoración</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <div className="form-group">
+          <label>URLs de Imágenes</label>
+          {images.map((imgUrl, index) => (
+            <div key={index} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
               <input
-                type="number"
-                id="price"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
+                type="url"
+                placeholder="https://..."
+                value={imgUrl}
+                onChange={(e) => handleImageChange(index, e.target.value)}
                 required
               />
-            </label>
-
-            <label htmlFor="category">
-              Categoría
-              <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
+              <button 
+                type="button"
+                className="icon-only"
+                onClick={() => removeImageInput(index)}
+                style={{ background: 'transparent', border: 'none' }}
               >
-                <option value="" disabled>Seleccione una categoría...</option>
-                <option value="muebles">Muebles</option>
-                <option value="tecnologia">Tecnología</option>
-                <option value="decoracion">Decoración</option>
-              </select>
-            </label>
-          </div>
+                <Trash2 size={20} color="#ef4444" />
+              </button>
+            </div>
+          ))}
+          <button 
+            type="button" 
+            onClick={addImageInput}
+            style={{ background: 'transparent', color: 'var(--pink-color)', padding: '0.5rem 0', border: 'none' }}
+          >
+            <PlusCircle size={16} /> Añadir otra imagen
+          </button>
+        </div>
 
-          <label htmlFor="image">
-            URL de la Imagen
-            <input
-              type="url"
-              id="image"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
+        <div className="form-group">
           <label htmlFor="description">
             Descripción
-            <textarea
-              id="description"
-              name="description"
-              rows="5"
-              value={formData.description}
-              onChange={handleChange}
-              required
-            ></textarea>
+          <textarea
+            id="description"
+            name="description"
+            rows="5"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          ></textarea>
           </label>
+        </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '2rem' }}>
-            <button type="button" className="outline" onClick={() => navigate(-1)}>
-              Cancelar
-            </button>
-            <button type="submit" className="primary">
-              Publicar Artículo
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <nav>
+          <button type="button" onClick={() => navigate(-1)}>
+            Cancelar
+          </button>
+          <button type="submit" className="secondary">
+            Publicar Artículo
+          </button>
+        </nav>
+      </form>
+    </>
   );
 };
 

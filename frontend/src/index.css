@@ -1,160 +1,538 @@
 @import "@picocss/pico/css/pico.min.css";
 
 :root {
-  --primary: #d946ef;
-  --primary-hover: #c026d3;
-  --primary-focus: rgba(217, 70, 239, 0.25);
-  --primary-inverse: #fff;
+  --pink-color: #d946ef;
+  --pink-hover: #c026d3;
+  
+  --pico-primary: #d946ef !important;
+  --pico-primary-hover: #c026d3 !important;
+  --pico-primary-focus: rgba(217, 70, 239, 0.4) !important;
+  --pico-selection-color: rgba(217, 70, 239, 0.25) !important;
+  --primary: #d946ef !important;
+  --primary-focus: rgba(217, 70, 239, 0.4) !important;
+  
   --background-color: #1a1a24;
   --surface-color: #242430;
-  --border-color: #333344;
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
-  --border-radius: 0.5rem;
-  --spacing: 1.5rem;
+  
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+
+/* Previene el scroll del fondo cuando el popup está abierto */
+:root:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Oculta las barras scroll */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::selection {
+  background-color: rgba(217, 70, 239, 0.3);
+  color: white;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-main);
   font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Custom Styles */
-nav {
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--border-color);
+body > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-nav strong {
-  font-size: 1.25rem;
+main {
+  flex: 1;
+}
+
+a {
   color: var(--text-main);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover, a:focus {
+  color: var(--pink-color);
+  text-decoration: none;
+}
+
+main, nav:not(article nav, figure nav, form nav) {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+nav:not(article nav, figure nav, form nav) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+nav:not(article nav, figure nav, form nav) ul {
   display: flex;
   align-items: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input, select, textarea {
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: var(--radius-lg) !important;
+  background: var(--background-color) !important;
+  color: var(--text-main) !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+  padding: 1rem;
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  border: 1px solid var(--pink-color) !important;
+  box-shadow: 0 0 10px rgba(217, 70, 239, 0.3) !important;
+  outline: none !important;
+  background-color: var(--background-color) !important;
+}
+
+button, [role="button"], a[role="button"] {
+  color: var(--text-main) !important;
+  border: none !important;
+  border-radius: var(--radius-lg) !important;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease !important;
+  padding: 0.85rem 2rem !important;
+  margin: 0 !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 
-.hero {
-  padding: 4rem 0;
-  text-align: center;
+button:not(.secondary), [role="button"]:not(.secondary), a[role="button"]:not(.secondary) {
+  background-color: transparent !important;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+button:hover, [role="button"]:hover {
+  background-color: var(--surface-color) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
 }
 
-.hero h1 span {
-  color: var(--primary);
+button.icon-only {
+  padding: 0.5rem !important;
+  min-width: auto !important;
+  width: auto !important;
+  aspect-ratio: 1/1 !important;
 }
 
-.hero p {
-  color: var(--text-muted);
-  font-size: 1.25rem;
-  max-width: 600px;
-  margin: 0 auto 2rem;
+button:active, [role="button"]:active {
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.8) !important;
+  transform: none !important;
+}
+
+button:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 1px rgba(217, 70, 239, 0.4) !important;
+}
+
+.secondary {
+  background-color: var(--pink-color) !important;
+  color: white !important;
+}
+
+.secondary:hover {
+  background-color: var(--pink-hover) !important;
 }
 
 .card {
   background-color: var(--surface-color);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  border: none;
 }
 
-.product-card {
-  overflow: hidden;
-  padding: 0;
+/* Radio mas pequeño para elementos hijos */
+.card img, .card input, .card select, .card textarea, .card button, .card [role="button"], .card .embla {
+  border-radius: var(--radius-md) !important;
 }
 
-.product-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.card mark {
+  border-radius: var(--radius-sm);
 }
 
-.product-card-body {
-  padding: 1rem;
+/* Base Image */
+img { border-radius: var(--radius-lg); }
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 { margin: 0; color: var(--text-main) !important; }
+p { margin: 0; }
+
+/* Home Header */
+/* Hero Specific Styling */
+header.hero { padding: 4rem 0; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+header.hero > div { flex: 1 1 400px; }
+header.hero > figure { flex: 1 1 400px; display: flex; justify-content: center; margin: 0; }
+header.hero h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 1rem; }
+header.hero h1 span { color: var(--pink-color); }
+header.hero p { color: var(--text-muted); font-size: 1.25rem; margin-bottom: 2rem; }
+header.hero nav ul { display: flex; gap: 1rem; padding: 0; list-style: none; }
+header.hero nav ul li a[role="button"] {
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem !important;
 }
 
-.product-card-title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+header.hero nav ul li a[role="button"] svg {
+  width: 32px !important;
+  height: 32px !important;
+  stroke-width: 2.5;
 }
 
-.product-card-price {
-  color: var(--primary);
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.product-card-seller {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  font-size: 0.875rem;
-}
-
-.product-grid {
+section.hero { padding: 4rem 0; text-align: center; }
+section.hero > div {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
 }
 
-.auth-container {
-  max-width: 500px;
-  margin: 4rem auto;
+section.hero article.card {
+  padding: 4rem 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-/* Profile specific */
-.profile-header {
+section.card.hero {
+  padding: 6rem 2rem;
+  text-align: center;
+  margin: 4rem auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color);
 }
 
-.profile-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: var(--surface-color);
+
+main > section { padding: 4rem 0; }
+main > section > h2 { text-align: center; margin-bottom: 1rem; }
+main > section > p { text-align: center; margin-bottom: 3rem; color: var(--text-muted); }
+
+main > section > div { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 0.5rem; 
+}
+
+main > section > div > article.card { 
+  text-align: center; 
+  padding: 1.5rem; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 1rem; 
+}
+/* Auth */
+main > hgroup { text-align: center; margin: 4rem 0 2rem 0; }
+main > hgroup p { color: var(--text-muted); margin-top: 0.5rem; }
+form.card { text-align: left; max-width: 500px; margin: 0 auto; }
+form.card label { display: block; margin-bottom: 1rem; }
+form.card input, form.card select, form.card textarea { margin-top: 0.5rem; }
+form.card > footer { text-align: center; margin-top: 1rem; color: var(--text-muted); }
+form.card > nav { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+form.card fieldset { border: none; padding: 0; margin: 0 0 1.5rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+form.card > div { margin-bottom: 1.5rem; }
+form.card > div > div { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+
+.form-group {
+  margin-bottom: 2rem !important;
+}
+
+
+main > header:has(a.secondary) { padding: 2rem 0; justify-content: space-between; }
+main > header:has(a.secondary) hgroup { text-align: left; flex: none; }
+
+
+article.card { display: flex; flex-direction: column; height: 100%; margin: 0; }
+article.card > figure { position: relative; margin: 0 0 0.5rem 0; }
+article.card > figure > img { width: 100%; height: 200px; object-fit: cover; }
+article.card > figure > mark { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 0.2rem 0.6rem; font-weight: bold; border: none; }
+article.card > div { display: flex; flex-direction: column; flex: 1; }
+article.card > div > strong { font-size: 1rem; margin-bottom: 0.5rem; }
+article.card > div > small { color: var(--text-muted); margin-bottom: 0.5rem; }
+article.card > div > footer { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.875rem; margin-top: auto; padding: 0; background: none; border: none; }
+article.card > div > footer > div { width: 24px; height: 24px; border-radius: 50%; background-color: #555; display: flex; align-items: center; justify-content: center; }
+
+
+main > div:has(aside) { 
+  display: grid; 
+  grid-template-columns: 320px 1fr; 
+  gap: 2rem; 
+  padding: 2rem 0; 
+  align-items: flex-start;
+}
+
+main > div > aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+main > div > aside article.card { 
+  text-align: center; 
+  margin: 0;
+  padding: 2rem 1.5rem;
+}
+
+main > div > aside article.card > div:first-of-type { 
+  width: 120px !important; 
+  height: 120px !important; 
+  min-width: 120px !important;
+  min-height: 120px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important; 
+  background-color: var(--background-color); 
+  margin: 0 auto 1.5rem; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  flex-shrink: 0;
+  overflow: hidden;
+}
+main > div > aside article.card h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+main > div > aside article.card p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem; }
+main > div > aside article.card ul { list-style: none; padding: 0; margin: 0 0 1.5rem 0; }
+main > div > aside article.card ul li { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; }
+main > div > section > nav { display: flex; gap: 2rem; border-bottom: 1px solid var(--surface-color); margin-bottom: 1.5rem; }
+main > div > section > nav button { 
+  border-radius: var(--radius-lg) !important; 
+  background: transparent !important; 
+  padding: 0.5rem 1.5rem; 
+  box-shadow: none !important; 
+  color: var(--text-muted) !important; 
+  border: none !important;
+  transition: all 0.2s ease;
+}
+main > div > section > nav button[aria-selected="true"] { 
+  color: var(--text-main) !important; 
+  background: rgba(217, 70, 239, 0.05) !important;
+  border-bottom: 2px solid var(--pink-color) !important; 
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+main > div > section > div { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+main > div > section > div > article.card { 
+  padding: 0 !important; 
+  background: var(--surface-color) !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+}
+
+main > div > section > div > article.card > figure { 
+  position: relative; 
+  margin: 0; 
+  height: 240px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+main > div > section > div > article.card > figure > img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+main > div > section > div > article.card > figure > header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none !important;
+  margin: 0 !important;
+  border-radius: var(--radius-md) !important;
+}
+
+main > div > section > div > article.card > figure > header strong {
+  color: white;
+  font-size: 1rem;
+}
+
+main > div > section > div > article.card > figure > header button {
+  background: transparent !important;
+  padding: 0.4rem !important;
+  color: white !important;
+  box-shadow: none !important;
+  min-width: auto !important;
+  width: auto !important;
+}
+
+main > div > section > div > article.card > figure > mark {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem !important;
+  font-weight: 600;
+  margin: 0;
+  border: none !important;
+}
+
+main > div > section > div > article.card > figure > nav {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+
+main > div > section > div > article.card > figure > nav button {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(8px);
+  color: #ff4d4d !important;
+  border-radius: 50% !important;
+  width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+}
+
+
+footer:not(article footer) {
+  max-width: 1100px;
+  margin: 4rem auto 0 auto;
+  padding: 2rem;
+  border-top: 1px solid var(--surface-color);
+  text-align: center;
+  color: var(--text-muted);
+  width: 100%;
+}
+
+
+main > article.card { display: flex; flex-direction: row; gap: 2rem; max-width: 900px; width: 100%; margin: 2rem auto; position: relative; flex-wrap: wrap; padding: 1.5rem; }
+main > article.card > button { position: absolute; top: 1rem; right: 1rem; padding: 0.5rem; z-index: 100; }
+main > article.card > figure { flex: 1 1 400px; position: relative; min-height: 300px; margin: 0; }
+main > article.card > section { flex: 1 1 300px; padding: 1rem 0; display: flex; flex-direction: column; text-align: left; }
+main > article.card > section h1 { font-size: 1.5rem; margin-bottom: 1rem; padding-right: 2rem; }
+main > article.card > section h2 { color: var(--pink-color) !important; font-size: 1.5rem; margin-bottom: 1.5rem; }
+main > article.card > section h3 { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+main > article.card > section p { color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; }
+main > article.card > section > div { margin-top: auto; }
+main > article.card > section ul { list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
+main > article.card > section ul li { display: flex; align-items: center; gap: 0.75rem; color: var(--text-muted); }
+
+/* Embla Carousel */
+.embla { position: relative; overflow: hidden; width: 100%; height: 100%; }
+.embla__container { 
+  display: flex; 
+  height: 100%;
+  will-change: transform;
+}
+.embla__slide { flex: 0 0 100%; min-width: 0; position: relative; }
+.embla__slide img { width: 100%; height: 100%; object-fit: cover; }
+.embla button { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5) !important; color: white !important; border-radius: 50% !important; width: 44px !important; height: 44px !important; min-width: 44px !important; min-height: 44px !important; padding: 0 !important; z-index: 10 !important; }
+.embla button:first-of-type { left: 1rem; }
+.embla button:last-of-type { right: 1rem; }
+.embla button:hover { background: rgba(0,0,0,0.8) !important; }
+.embla button:active { transform: translateY(-50%) !important; box-shadow: 0 0 15px rgba(217, 70, 239, 0.8) !important; }
+.embla button svg { pointer-events: none; }
+
+/* Embla Dots */
+main > article.card > figure > nav { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; }
+main > article.card > figure > nav > div { width: 8px; height: 8px; border-radius: 50%; background-color: rgba(255,255,255,0.5); cursor: pointer; }
+main > article.card > figure > nav > div[aria-selected="true"] { background-color: var(--pink-color); }
+main > article.card > figure > button { position: absolute; bottom: 1rem; right: 1rem; background: rgba(0,0,0,0.5) !important; color: white !important; padding: 0.5rem; z-index: 10; border-radius: var(--radius-md) !important; }
+/* PopUps / Dialogs */
+dialog {
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(8px);
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: block;
+  overflow-y: auto;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+dialog:not([open]) { display: none; }
+
+dialog > article.card {
+  width: 100%;
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: var(--surface-color) !important;
+  overflow-y: visible;
+}
+
+/* Product Detail PopUp */
+dialog:has(.embla) { padding: 0; }
+dialog:has(.embla) > button { position: absolute; top: 1.5rem; right: 1.5rem; color: white !important; background: rgba(0,0,0,0.5) !important; border-radius: 50% !important; z-index: 1100; }
+
+
+dialog .embla {
+  flex: 1;
+  height: 100%;
+}
+
+dialog .embla__container {
+  height: 100%;
+}
+
+dialog .embla__slide {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  height: 100%;
+  padding: 2rem;
+  backface-visibility: hidden;
+  perspective: 1000;
 }
 
-.badge {
-  background-color: var(--primary);
-  color: white;
-  padding: 0.2rem 0.5rem;
-  border-radius: 1rem;
-  font-size: 0.75rem;
+dialog .embla__slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: none !important;
+  transform: translateZ(0);
 }
 
-button.primary {
-  background-color: var(--primary);
-  border-color: var(--primary);
-}
-
-button.primary:hover {
-  background-color: var(--primary-hover);
-  border-color: var(--primary-hover);
-}
-
-button.outline {
-  background-color: transparent;
-  color: var(--text-main);
-  border-color: var(--border-color);
-}
-
-button.outline:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+dialog .embla button {
+  width: 60px !important;
+  height: 60px !important;
 }

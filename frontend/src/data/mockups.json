@@ -1,0 +1,188 @@
+{
+  "currentUser": {
+    "id": "u1-uuid-demo",
+    "email": "usuario@minimal.com",
+    "name": "Usuario Demo",
+    "role": "vendedor",
+    "avatar_url": "https://i.pravatar.cc/150?u=u1",
+    "location": "Las Condes, Santiago"
+  },
+  "categories": [
+    { "id": "c1", "name": "Muebles" },
+    { "id": "c2", "name": "Cocina" },
+    { "id": "c3", "name": "Decoración" },
+    { "id": "c4", "name": "Tecnología" }
+  ],
+  "catalog": [
+    {
+      "id": "p1",
+      "seller_id": "u2",
+      "category_id": "c2",
+      "name": "Plato de Cerámica",
+      "price": 12000,
+      "description": "Plato de cerámica hecho a mano con acabado mate.",
+      "stock": 10,
+      "location": "Providencia, Santiago",
+      "seller_name": "Ana Maria",
+      "images": [
+        { "url": "https://images.pexels.com/photos/28868032/pexels-photo-28868032.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p2",
+      "seller_id": "u3",
+      "category_id": "c2",
+      "name": "Bowls de Madera",
+      "price": 8500,
+      "description": "Set de bowls de madera de acacia.",
+      "stock": 5,
+      "location": "Ñuñoa, Santiago",
+      "seller_name": "Carlos",
+      "images": [
+        { "url": "https://images.pexels.com/photos/7303864/pexels-photo-7303864.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p3",
+      "seller_id": "u4",
+      "category_id": "c2",
+      "name": "Taza de Cerámica",
+      "price": 6000,
+      "description": "Taza blanca para café o té.",
+      "stock": 20,
+      "location": "Santiago Centro",
+      "seller_name": "Lucia",
+      "images": [
+        { "url": "https://images.pexels.com/photos/34414384/pexels-photo-34414384.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p4",
+      "seller_id": "u5",
+      "category_id": "c1",
+      "name": "Mesita Lateral",
+      "price": 45000,
+      "description": "Mesa lateral de madera y metal.",
+      "stock": 2,
+      "location": "Las Condes, Santiago",
+      "seller_name": "Roberto",
+      "images": [
+        { "url": "https://images.pexels.com/photos/7193656/pexels-photo-7193656.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p5",
+      "seller_id": "u6",
+      "category_id": "c1",
+      "name": "Silla de Madera",
+      "price": 38000,
+      "description": "Silla ergonómica de madera clara.",
+      "stock": 4,
+      "location": "Vitacura, Santiago",
+      "seller_name": "Sonia",
+      "images": [
+        { "url": "https://images.pexels.com/photos/12277128/pexels-photo-12277128.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p6",
+      "seller_id": "u7",
+      "category_id": "c1",
+      "name": "Taburete de Madera Simple",
+      "price": 25000,
+      "description": "Taburete versátil de madera natural.",
+      "stock": 8,
+      "location": "La Reina, Santiago",
+      "seller_name": "Mateo",
+      "images": [
+        { "url": "https://images.pexels.com/photos/13003632/pexels-photo-13003632.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p7",
+      "seller_id": "u8",
+      "category_id": "c1",
+      "name": "Silla de Comedor",
+      "price": 42000,
+      "description": "Silla de comedor con diseño limpio.",
+      "stock": 6,
+      "location": "Lo Barnechea, Santiago",
+      "seller_name": "Valeria",
+      "images": [
+        { "url": "https://images.pexels.com/photos/3049121/pexels-photo-3049121.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p8",
+      "seller_id": "u9",
+      "category_id": "c1",
+      "name": "Mesa Pequeña",
+      "price": 55000,
+      "description": "Mesa compacta para múltiples usos.",
+      "stock": 3,
+      "location": "Colina, Santiago",
+      "seller_name": "Ignacio",
+      "images": [
+        { "url": "https://images.pexels.com/photos/7193654/pexels-photo-7193654.jpeg", "position": 1 }
+      ]
+    }
+  ],
+  "userPosts": [
+    {
+      "id": "p9",
+      "seller_id": "u1-uuid-demo",
+      "category_id": "c1",
+      "name": "Silla Individual Compacta",
+      "price": 85000,
+      "description": "Silla individual de diseño nórdico, ideal para espacios pequeños.",
+      "stock": 1,
+      "location": "Las Condes, Santiago",
+      "images": [
+        { "url": "https://images.pexels.com/photos/6801442/pexels-photo-6801442.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p10",
+      "seller_id": "u1-uuid-demo",
+      "category_id": "c1",
+      "name": "Set de Sillas",
+      "price": 22000,
+      "description": "Set de dos sillas de diseño moderno.",
+      "stock": 3,
+      "location": "Las Condes, Santiago",
+      "images": [
+        { "url": "https://images.pexels.com/photos/7602907/pexels-photo-7602907.jpeg", "position": 1 }
+      ]
+    }
+  ],
+  "userFavorites": [
+    {
+      "id": "p11",
+      "seller_id": "u8",
+      "category_id": "c1",
+      "name": "Juego de Comedor Madera",
+      "price": 150000,
+      "description": "Juego de mesa y 4 sillas de madera maciza.",
+      "stock": 1,
+      "location": "Peñalolén, Santiago",
+      "seller_name": "Ricardo",
+      "images": [
+        { "url": "https://images.pexels.com/photos/3952048/pexels-photo-3952048.jpeg", "position": 1 }
+      ]
+    },
+    {
+      "id": "p12",
+      "seller_id": "u9",
+      "category_id": "c1",
+      "name": "Escritorio Pequeño",
+      "price": 65000,
+      "description": "Escritorio compacto para home office.",
+      "stock": 5,
+      "location": "Recoleta, Santiago",
+      "seller_name": "Daniela",
+      "images": [
+        { "url": "https://images.pexels.com/photos/12277130/pexels-photo-12277130.jpeg", "position": 1 }
+      ]
+    }
+  ]
+}

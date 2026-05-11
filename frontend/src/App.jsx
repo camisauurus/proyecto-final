@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SessionProvider } from "./context/SessionContext";
 
-// Components
+// Componentes
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 
-// Views
+// Vistas
 import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
@@ -18,18 +18,17 @@ function App() {
   return (
     <BrowserRouter>
       <SessionProvider>
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div>
           <Navbar />
-          <main style={{ flex: '1' }}>
+          <main>
             <Routes>
-              {/* Public Routes */}
+              {/* Rutas Públicas */}
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
               <Route path="/catalogo" element={<Gallery />} />
-              <Route path="/publicacion/:id" element={<ProductDetail />} />
 
-              {/* Private Routes */}
+              {/* Rutas Privadas */}
               <Route 
                 path="/publicar" 
                 element={
@@ -46,9 +45,17 @@ function App() {
                   </PrivateRoute>
                 } 
               />
+              <Route 
+                path="/publicacion/:id" 
+                element={
+                  <PrivateRoute>
+                    <ProductDetail />
+                  </PrivateRoute>
+                } 
+              />
             </Routes>
           </main>
-          <footer style={{ textAlign: 'center', padding: '2rem 0', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', marginTop: '2rem' }}>
+          <footer>
             <small>© {new Date().getFullYear()} MinimalStore. Todos los derechos reservados.</small>
           </footer>
         </div>
