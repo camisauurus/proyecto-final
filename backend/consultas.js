@@ -369,7 +369,7 @@ const obtenerOrdenesPorUsuario = async (user_id) => {
                            'product_name', p.name
                        )
                    ), '[]'
-               ) AS details
+               ) AS items
         FROM Orders o
         LEFT JOIN order_items oi ON o.id = oi.order_id
         LEFT JOIN Products p ON oi.products_id = p.id

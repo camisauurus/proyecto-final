@@ -202,7 +202,7 @@ app.post('/orders', verificarToken, async (req, res) => {
         const { total_price, items } = req.body
         
         const ordenProcesada = await crearOrden(buyer_id, total_price, items)
-        res.status(201).json({ message: "Compra realizada con éxito", order: ordenProcesada })
+        res.status(201).json({ message: "Compra realizada con éxito", order_id: ordenProcesada.id })
     } catch (error) {
         const statusCode = error.code || 500
         res.status(statusCode).json({ message: error.message })
@@ -316,7 +316,7 @@ app.use((req, res) => {
 // LEVANTAR EL SERVIDOR
 if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, () => {
-        console.log(`🚀 Servidor Express corriendo en http://localhost:${PORT}`);
+        console.log(`Servidor Express corriendo en http://localhost:${PORT}`);
     });
 }
 
